@@ -1,6 +1,8 @@
+
 import express from 'express';
 import cors  from 'cors';
-import mongoose , { ConnectOptions }from 'mongoose';
+import mongoose from 'mongoose';
+
 
 export class App {
     private express: express.Application;
@@ -9,11 +11,17 @@ export class App {
     constructor() {
         this.express = express();
         this.listen();
+        this.middlewares();
         this.database();
     }
 
     public getApp(): express.Application {
         return this.express;
+    }
+
+    private middlewares(): void {
+        this.express.use(express.json());
+        this.express.use(cors());
     }
 
     private listen(): void {
@@ -22,22 +30,17 @@ export class App {
         })
     }
 
-    private database(): void {
-        const mongooseConfig: ConnectOptions = {
-    
-            useCreateIndex: true,
-            useFindAndModify: false,
-            useUnifiedTopology: true
-        };
-
-        mongoose.connect('mongodb+srv://eduardobb:d8**t%40pJWXj3E@edudb.uqsau8h.mongodb.net/', mongooseConfig)
-        .then(() => {
-            console.log('Conexão com o banco de dados estabelecida com sucesso.');
-        })
-        .catch((error) => {
-            console.error('Erro ao conectar-se ao banco de dados:', error);
-        });
+    private async database(): Promise<void> {
+        const username = 'edugh';
+        const password = '06e08G12';
         
-    }
+        try {
+            const connectionString = `mongodb+srv://${username}:${password}@edudb.uqsau8h.mongodb.net/?retryWrites=true&w=majority`;
+          await mongoose.connect(connectionString);
+          console.log('Conexão com o banco de dados estabelecida com sucesso.');
+        } catch (error) {
+          console.error('Erro ao conectar-se ao banco de dados:', error);
+        }
+      }
     
 }
