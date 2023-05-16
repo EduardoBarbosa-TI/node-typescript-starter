@@ -1,6 +1,6 @@
 import express from 'express';
 import cors  from 'cors';
-import mongoose from 'mongoose';
+import mongoose , { ConnectOptions }from 'mongoose';
 
 export class App {
     private express: express.Application;
@@ -23,6 +23,21 @@ export class App {
     }
 
     private database(): void {
-        mongoose.connect('mongodb+srv://eduardobb:d8**t%40pJWXj3E-e@edudb.uqsau8h.mongodb.net/?retryWrites=true&w=majority');
+        const mongooseConfig: ConnectOptions = {
+    
+            useCreateIndex: true,
+            useFindAndModify: false,
+            useUnifiedTopology: true
+        };
+
+        mongoose.connect('mongodb+srv://eduardobb:d8**t%40pJWXj3E@edudb.uqsau8h.mongodb.net/', mongooseConfig)
+        .then(() => {
+            console.log('Conexão com o banco de dados estabelecida com sucesso.');
+        })
+        .catch((error) => {
+            console.error('Erro ao conectar-se ao banco de dados:', error);
+        });
+        
     }
+    
 }
