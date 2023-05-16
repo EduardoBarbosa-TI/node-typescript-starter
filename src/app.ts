@@ -2,6 +2,8 @@
 import express from 'express';
 import cors  from 'cors';
 import mongoose from 'mongoose';
+import usuarioRoute from './routes/usuario.route';
+import mensagemRoute from './routes/mensagem.route';
 
 
 export class App {
@@ -10,9 +12,10 @@ export class App {
 
     constructor() {
         this.express = express();
-        this.listen();
         this.middlewares();
         this.database();
+        this.routes();
+        this.listen();
     }
 
     public getApp(): express.Application {
@@ -36,11 +39,16 @@ export class App {
         
         try {
             const connectionString = `mongodb+srv://${username}:${password}@edudb.uqsau8h.mongodb.net/?retryWrites=true&w=majority`;
-          await mongoose.connect(connectionString);
+            await mongoose.connect(connectionString);
           console.log('Conexão com o banco de dados estabelecida com sucesso.');
         } catch (error) {
           console.error('Erro ao conectar-se ao banco de dados:', error);
         }
+      }
+
+      private routes(): void{
+        this.express.use('/usuarios', usuarioRoute);
+        this.express.use('/mensagens', mensagemRoute);
       }
     
 }
