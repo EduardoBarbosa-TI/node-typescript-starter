@@ -1,7 +1,7 @@
 # node-typescript-starter
 Consolidando o conhecimento em node.js com typescript e mongoDB através do curso do Andrew Rosário, segue o link a baixo:
 
-# Link do curso
+### Link do curso
 https://www.youtube.com/playlist?list=PLn3kOoc0oI2cQDdUEQxj75sxgRH53DmSc
 
 ### Pré-requisitos
