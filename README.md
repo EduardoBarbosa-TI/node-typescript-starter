@@ -22,7 +22,7 @@ $ cd node-typescript-starter
 # Instale as dependências
 $ npm install
 
-#Coloque a sua string gerada no mongoDB
+# Coloque a sua string gerada do mongoDB no arquivo app.ts
 const connectionString = `mongodb+srv://${username}:${password}@edudb.uqsau8h.mongodb.net/?retryWrites=true&w=majority`;
 
 # Execute a aplicação em modo de desenvolvimento
