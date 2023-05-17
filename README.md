@@ -7,7 +7,6 @@ https://www.youtube.com/playlist?list=PLn3kOoc0oI2cQDdUEQxj75sxgRH53DmSc
 ### Pré-requisitos
 
 Antes de começar, você vai precisar configurar a sua string de conexão do mongoDB no arquivo app.ts e precisa emitir essa string no site do [mongoDB](https://mongodb.com). 
-Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
 
 ### 🎲 Rodando o Back End (servidor)
 
