@@ -1,5 +1,5 @@
 import { Schema, model} from "mongoose";
-import { UsuarioInterface } from "../interface/usuario.interface";
+import { UsuarioInterface } from "../interfaces/usuario.interface";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
@@ -39,6 +39,7 @@ UsuarioSchema.methods.compararSenhas = function(senha: string): Promise<boolean>
 }
 
 UsuarioSchema.methods.gerarToken = function(): String {
+   
     const decodedToken = {
         _id: String(this._id),
         nome: this.nome,

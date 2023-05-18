@@ -9,6 +9,7 @@ mensagemRoute.post(
     authMiddleware.autorizarUsuarioByParams,
     authMiddleware.autorizarUsuarioByToken,
     mensagemController.enviar
+
 );
 
 mensagemRoute.get(

@@ -1,21 +1,24 @@
 import mensagemModel from "../models/mensagem.model";
 import { Request, Response } from "express";
 
+
 class MensagemController {
     public async enviar(req: Request, res: Response): Promise<Response> {
+        
         const mensagem =  await mensagemModel.create(
             {
                 texto: req.body.texto,
                 remetente: req.usuario._id,
-                destinatario: req.usuarioChat._id
+                destinatario: req.params.id 
             }
         );
+        
         return res.json(mensagem);
     }
 
     public async listar(req:Request, res:Response): Promise<Response>{
         const idUsuarioLogado  = req.usuario._id;
-        const idUsuarioChat = req.usuarioChat._id;
+        const idUsuarioChat = req.params.id;
 
         const mensagens = await mensagemModel.find({
             $or: [

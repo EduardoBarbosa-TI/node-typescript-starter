@@ -1,5 +1,5 @@
 import { Schema,model, Document } from "mongoose"
-import { MensagemInterface } from "../interface/mensagem.interface";
+import { MensagemInterface } from "../interfaces/mensagem.interface";
 
 interface MensagemModel extends MensagemInterface, Document {}
 
