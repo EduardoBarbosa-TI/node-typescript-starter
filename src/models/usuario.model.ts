@@ -38,7 +38,7 @@ UsuarioSchema.methods.compararSenhas = function(senha: string): Promise<boolean>
     return bcrypt.compare(senha, this.senha);
 }
 
-UsuarioSchema.methods.gerarToken = function(): string {
+UsuarioSchema.methods.gerarToken = function(): String {
     const decodedToken = {
         _id: String(this._id),
         nome: this.nome,

@@ -1,10 +1,8 @@
-
 import express from 'express';
 import cors  from 'cors';
 import mongoose from 'mongoose';
 import usuarioRoute from './routes/usuario.route';
 import mensagemRoute from './routes/mensagem.route';
-
 
 export class App {
     private express: express.Application;
@@ -36,7 +34,6 @@ export class App {
     private async database(): Promise<void> {
         const username = 'edugh';
         const password = '06e08G12';
-        
         try {
             const connectionString = `mongodb+srv://${username}:${password}@edudb.uqsau8h.mongodb.net/?retryWrites=true&w=majority`;
             await mongoose.connect(connectionString);
