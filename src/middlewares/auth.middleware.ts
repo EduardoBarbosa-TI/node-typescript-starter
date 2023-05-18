@@ -35,13 +35,14 @@ class AuthMiddleware {
                 return res.status(400).send({ message : 'Usuário inexistente!'});
             }
 
-            req.usuarioChat = usuario;
+            req.usuario = usuario;
 
             return next(); 
         } catch (error) {
                 return res.status(401).send({ message: 'Usuário Inválido' });
         }
     }
+    
 }
 
 export default new AuthMiddleware();

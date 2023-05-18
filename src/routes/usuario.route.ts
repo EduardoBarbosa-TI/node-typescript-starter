@@ -1,9 +1,17 @@
 import { Router } from "express";
-import UsuarioController from "../controllers/usuario.controller";
+import usuarioController from "../controllers/usuario.controller";
+import authMiddleware from "../middlewares/auth.middleware";
 
-const UsuarioRoute = Router();
+const usuarioRoute = Router();
 
-UsuarioRoute.post('/cadastro', UsuarioController.cadastrar);
-UsuarioRoute.post('/login', UsuarioController.autenticar);
+usuarioRoute.post('/cadastro', usuarioController.cadastrar);
+usuarioRoute.post('/login', usuarioController.autenticar);
 
-export default UsuarioRoute;
+usuarioRoute.get(
+    '/:id',
+    authMiddleware.autorizarUsuarioByParams,
+    authMiddleware.autorizarUsuarioByToken,
+    usuarioController.getById
+);
+
+export default usuarioRoute;
