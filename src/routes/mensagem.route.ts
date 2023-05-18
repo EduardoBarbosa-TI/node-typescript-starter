@@ -6,10 +6,16 @@ const mensagemRoute = Router();
 
 mensagemRoute.post(
     '/:id',
-
     authMiddleware.autorizarUsuarioByParams,
     authMiddleware.autorizarUsuarioByToken,
     mensagemController.enviar
+);
+
+mensagemRoute.get(
+    '/:id',
+    authMiddleware.autorizarUsuarioByParams,
+    authMiddleware.autorizarUsuarioByToken,
+    mensagemController.listar
 );
 
 export default mensagemRoute;
