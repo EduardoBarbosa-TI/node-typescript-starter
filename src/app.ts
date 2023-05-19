@@ -6,7 +6,7 @@ import mensagemRoute from './routes/mensagem.route';
 
 export class App {
     private express: express.Application;
-    private porta = 8000;
+    private porta = 9000;
 
     constructor() {
         this.express = express();

@@ -14,4 +14,10 @@ usuarioRoute.get(
     usuarioController.getById
 );
 
+usuarioRoute.get(
+    '/',
+    authMiddleware.autorizarUsuarioByToken,
+    usuarioController.listar
+);
+
 export default usuarioRoute;

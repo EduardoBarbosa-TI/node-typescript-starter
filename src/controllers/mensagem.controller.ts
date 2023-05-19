@@ -1,15 +1,15 @@
-import mensagemModel from "../models/mensagem.model";
+import MensagemModel from "../models/mensagem.model";
 import { Request, Response } from "express";
 
 
 class MensagemController {
     public async enviar(req: Request, res: Response): Promise<Response> {
         
-        const mensagem =  await mensagemModel.create(
+        const mensagem =  await MensagemModel.create(
             {
                 texto: req.body.texto,
-                remetente: req.usuario._id,
-                destinatario: req.params.id 
+                remetente: req.usuario,
+                destinatario: req.usuarioChat
             }
         );
         
@@ -20,13 +20,8 @@ class MensagemController {
         const idUsuarioLogado  = req.usuario._id;
         const idUsuarioChat = req.params.id;
 
-        const mensagens = await mensagemModel.find({
-            $or: [
-                { $and: [ { remetente: idUsuarioLogado }, { destinatario: idUsuarioChat } ] },
-                { $and: [ { remetente: idUsuarioChat }, { destinatario: idUsuarioLogado } ] },
-            ]
-        }).sort('createdAt');
-
+        const query = MensagemModel.buscaChat(idUsuarioLogado, idUsuarioChat);
+        const mensagens = await query.sort('createdAt').exec();
         const mensagensChat = mensagens.map(mensagem => {
             return {
                 texto: mensagem.texto,
@@ -34,7 +29,6 @@ class MensagemController {
                 isRemetente: mensagem.remetente == String(idUsuarioLogado)
             }
         })
-
         return res.json(mensagensChat);
     }
 }

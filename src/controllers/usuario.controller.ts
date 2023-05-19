@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import usuarioModel from "../models/usuario.model";
+import mensagemController from "./mensagem.controller";
+import mensagemModel from "../models/mensagem.model";
 
 class UsuarioController {
     public async cadastrar(req: Request,res: Response): Promise<Response>{
@@ -32,9 +34,41 @@ class UsuarioController {
     }
 
     public getById(req: Request, res: Response): Response {
-        console.log(req.usuarioChat);
+        
         return res.json(req.usuarioChat);
     }
+
+    public async listar(req: Request, res:Response): Promise<Response>{
+        const idUsuarioLogado = req.usuario._id;
+        
+        const usuarios = await usuarioModel.find({ _id: { $ne:idUsuarioLogado }});
+
+        const usuariosMensagens = await Promise.all(
+            usuarios.map( usuario =>{
+             return mensagemModel.buscaChat(idUsuarioLogado, usuario._id)
+                .sort('-createdAt')
+                .limit(1)
+                .then(mensagens => {
+                    return {
+                      _id: usuario._id,
+                      nome: usuario.nome,
+                      avatar: usuario.avatar,
+                      ultimaMensagem: mensagens[0] ? mensagens[0].texto : null,
+                      dataUltimaMensagem: mensagens[0] ? mensagens[0].createdAt : null
+                }
+            });
+        }));
+        
+        const mensagensOrdenadas = usuariosMensagens.sort((a, b) => {
+            return (a.dataUltimaMensagem ? 0 : 1) - (b.dataUltimaMensagem ? 0 : 1) 
+                || -(a.dataUltimaMensagem > b.dataUltimaMensagem)
+                || +(a.dataUltimaMensagem < b.dataUltimaMensagem);
+        });
+
+        return res.json(usuariosMensagens);
+    }
+
+    
 
 }
 
