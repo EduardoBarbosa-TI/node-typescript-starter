@@ -39,8 +39,8 @@ class AuthMiddleware {
             }
 
             req.usuario = usuario;
-
-            // return res.status(200).send({ message: "Mensagem enviada com sucesso !" }); 
+            req.usuarioChat = usuario;
+ 
             return next();
 
         } catch (error) {

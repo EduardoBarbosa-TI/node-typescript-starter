@@ -32,6 +32,7 @@ class UsuarioController {
     }
 
     public getById(req: Request, res: Response): Response {
+        console.log(req.usuarioChat);
         return res.json(req.usuarioChat);
     }
 
